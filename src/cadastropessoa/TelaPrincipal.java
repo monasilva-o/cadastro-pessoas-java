@@ -189,4 +189,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         //atualizar o objeto na posicao x dentro do array
         this.listaPessoa.set(posicao, pessoa);
     }
+    
+    void removerPessoaLista(int posicao){
+        this.listaPessoa.remove(posicao);
+    }
 }

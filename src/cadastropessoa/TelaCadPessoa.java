@@ -228,6 +228,53 @@ public class TelaCadPessoa extends javax.swing.JInternalFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
        //Botao de excluir pessoa
+       List<Pessoa> lstPessoa = telaPrincipal.getListaPessoa();
+       
+       //Verifica se exisete uma pessoa sendo exibida
+       if(posicao < 0 || posicao >= lstPessoa.size()){
+           JOptionPane.showMessageDialog(null, 
+                   "Não há pessoa selecionada para excluir");
+           return;
+       }
+       
+       //Pede confirmação do usuário para exclusão
+       int resposta = JOptionPane.showConfirmDialog(
+                    null,
+                    "Deseja realmente excluir esta pessoa?",
+                    "Confirmação de exclusão",
+                    JOptionPane.YES_NO_OPTION
+       );
+       
+       //Se o usuario escolher "NO", não faz nada
+       if(resposta != JOptionPane.YES_OPTION){
+           return;
+       }
+       
+       //Remove a pessoa da lista (manda pra tela principal)
+       telaPrincipal.removerPessoaLista(posicao);
+       
+       //Ajusta a tela após a exclusão
+       if (lstPessoa.isEmpty()){
+           posicao = -1;
+           limparTela();
+           JOptionPane.showMessageDialog(null, 
+                   "Pessoa excluída. Não há mais pessoas cadastradas");
+       } else if (posicao >= lstPessoa.size()) {
+           //Exclui o ultino item e volta para o novo ultimo
+           posicao = lstPessoa.size() - 1;
+           Pessoa p = lstPessoa.get(posicao);
+           txtNome.setText(p.getNome());
+           txtEndereco.setText(p.getEndereco());
+           txtEmail.setText(p.getEmail());
+           JOptionPane.showMessageDialog(null, "Pessoa excluída com sucesso!");
+       } else {
+           //quando exclui um item do meio, mostra o que "herda" a posição
+           Pessoa p = lstPessoa.get(posicao);
+           txtNome.setText(p.getNome());
+           txtEndereco.setText(p.getEndereco());
+           txtEmail.setText(p.getEmail());
+           JOptionPane.showMessageDialog(null, "Pessoa excluída com sucesso!");
+       }
     }//GEN-LAST:event_jButton5ActionPerformed
     
     
